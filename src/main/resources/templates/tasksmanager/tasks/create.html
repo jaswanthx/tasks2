@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Task</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Create New Task</h1>
+            <nav class="nav">
+                <a th:href="@{/tasksmanager/tasks}">Back to Tasks</a>
+                <a th:href="@{/tasksmanager/tasks/homepage}">Dashboard</a>
+                <a th:href="@{/tasksmanager/logout}">Logout</a>
+            </nav>
+        </div>
+
+        <div class="card">
+            <form th:action="@{/tasksmanager/tasks/create}" th:object="${task}" method="post">
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" th:field="*{title}" placeholder="Enter task title" required/>
+                </div>
+
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea th:field="*{description}" placeholder="Enter task description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select th:field="*{category}">
+                        <option value="">Select Category</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Health">Health</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority:</label>
+                    <select th:field="*{priority}">
+                        <option value="">Select Priority</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Due Date:</label>
+                    <input type="date" th:field="*{dueDate}"/>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button type="submit" class="btn">Create Task</button>
+                    <a th:href="@{/tasksmanager/tasks}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

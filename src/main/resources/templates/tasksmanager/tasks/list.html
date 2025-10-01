@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Tasks</h1>
+            <nav class="nav">
+                <a th:href="@{/tasksmanager/tasks/homepage}">Dashboard</a>
+                <a th:href="@{/tasksmanager/tasks/create}">Add Task</a>
+                <a th:href="@{/tasksmanager/logout}">Logout</a>
+            </nav>
+        </div>
+
+        <div class="card">
+            <div th:if="${tasks != null and !tasks.empty}">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="task : ${tasks}">
+                            <td th:text="${task.title}"></td>
+                            <td th:text="${task.description}"></td>
+                            <td th:text="${task.category}"></td>
+                            <td>
+                                <span th:class="'priority-badge priority-' + ${task.priority.toLowerCase()}" 
+                                      th:text="${task.priority}"></span>
+                            </td>
+                            <td>
+                                <span th:class="'status-badge status-' + ${task.status.toLowerCase()}" 
+                                      th:text="${task.status}"></span>
+                            </td>
+                            <td th:text="${task.dueDate}"></td>
+                            <td>
+                                <div class="task-actions">
+                                    <a th:href="@{/tasksmanager/tasks/edit/{id}(id=${task.taskId})}" class="edit">Edit</a>
+                                    <a th:href="@{/tasksmanager/tasks/delete/{id}(id=${task.taskId})}" 
+                                       class="delete" onclick="return confirm('Are you sure you want to delete this task?');">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div th:if="${tasks == null or tasks.empty}" class="empty-state">
+                <h3>No tasks found</h3>
+                <p>You haven't created any tasks yet. Start by adding your first task!</p>
+                <a th:href="@{/tasksmanager/tasks/create}" class="btn">Create Your First Task</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Task Manager Dashboard</h1>
+            <nav class="nav">
+                <a th:href="@{/tasksmanager/tasks}">My Tasks</a>
+                <a th:href="@{/tasksmanager/tasks/create}">Add Task</a>
+                <a th:href="@{/tasksmanager/logout}">Logout</a>
+            </nav>
+        </div>
+
+        <div class="card">
+            <h2>Welcome to Your Task Manager!</h2>
+            <p style="margin-bottom: 30px; color: #6c757d;">
+                Stay organized and productive with your personal task management system.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Quick Actions</h3>
+                    <p style="margin-bottom: 15px; color: #6c757d;">Get started with your tasks</p>
+                    <a th:href="@{/tasksmanager/tasks/create}" class="btn">Create New Task</a>
+                </div>
+                
+                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">View Tasks</h3>
+                    <p style="margin-bottom: 15px; color: #6c757d;">Manage your existing tasks</p>
+                    <a th:href="@{/tasksmanager/tasks}" class="btn btn-secondary">View All Tasks</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
