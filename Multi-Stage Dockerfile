@@ -1,0 +1,31 @@
+# --------------------
+# Stage 1: The Build Stage
+# --------------------
+FROM maven:3.8.7-openjdk-17 AS builder
+
+# Set the working directory for the compilation process
+WORKDIR /app
+
+# Copy the entire project code into the build environment
+COPY . .
+
+# Run the Maven package command (this creates the JAR in /app/target)
+RUN mvn clean package -DskipTests
+
+
+# --------------------
+# Stage 2: The Runtime Stage
+# --------------------
+FROM openjdk:17-jre-slim
+
+# Set the application directory
+WORKDIR /app
+
+# Copy the JAR file FROM the "builder" stage into the final, small image
+COPY --from=builder /app/target/*.jar /app/app.jar
+
+# Expose the application port
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
